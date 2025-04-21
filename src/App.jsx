@@ -12,8 +12,12 @@ function App() {
         const response = await fetch(
           "https://xcountries-backend.azurewebsites.net/all"
         );
-        const data = await response.json();
-        setData(data);
+        if (response.status === 200) {
+          const data = await response.json();
+          setData(data);
+        } else {
+          console.error("Error fetching data:", response.status);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
