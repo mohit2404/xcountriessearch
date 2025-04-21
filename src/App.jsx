@@ -10,10 +10,11 @@ function App() {
     async function fetchData() {
       try {
         const response = await fetch(
-          "https://xcountries-backend.azurewebsites.net/all"
+          "https://countries-search-data-prod-812920491762.asia-south1.run.app/countries"
         );
         if (response.status === 200) {
           const data = await response.json();
+          console.log(data)
           setData(data);
         } else {
           console.error("Error fetching data:", response.status);
@@ -27,7 +28,7 @@ function App() {
 
   // Get filtered data based on search input
   const filteredData = data.filter((country) =>
-    country.name.toLowerCase().includes(search.toLowerCase())
+    country.common.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -42,7 +43,7 @@ function App() {
       </div>
       <div className="container mx-auto py-10 grid grid-cols-2 p-4 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {(search ? filteredData : data).map((country) => (
-          <Country key={country.id} country={country} />
+          <Country key={country.png} country={country} />
         ))}
       </div>
     </section>
